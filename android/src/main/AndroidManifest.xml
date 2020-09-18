@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kaneki.com.fluttervnpt">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application android:theme="@style/NoActionBar">
+        <activity android:name=".FirstActivity"></activity>
+        <activity android:name=".SecondActivity"></activity>
+    </application>
+</manifest>
