@@ -7,6 +7,8 @@ import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
+import com.example.startactivitylibrary.ToastMessage;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
@@ -42,8 +44,8 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 		channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName);
 		channel.setMethodCallHandler(this);
 
-		eventChannel = new EventChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), eventChannelName);
-		onStreamHandler(eventChannel);
+		/*eventChannel = new EventChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), eventChannelName);
+		onStreamHandler(eventChannel);*/
 	}
 
 
@@ -52,11 +54,11 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 		final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName);
 		channel.setMethodCallHandler(new FluttervnptPlugin());
 
-		eventChannel = new EventChannel(registrar.messenger(), eventChannelName);
-		onStreamHandler(eventChannel);
+		/*eventChannel = new EventChannel(registrar.messenger(), eventChannelName);
+		onStreamHandler(eventChannel);*/
 	}
 
-	public static void onStreamHandler(EventChannel eventChannel) {
+/*	public static void onStreamHandler(EventChannel eventChannel) {
 		eventChannel.setStreamHandler(
 				new EventChannel.StreamHandler() {
 					@Override
@@ -69,7 +71,7 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 					}
 				}
 		);
-	}
+	}*/
 
 	public static Runnable buildCallBack(final EventChannel.EventSink events) {
 		if (callback == null) {
@@ -92,9 +94,10 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 			if (type == null || (type != null && type.isEmpty())) {
 				result.error("ERROR", "type can not null", null);
 			} else {
-				Intent intent = new Intent(activity, FirstActivity.class);
+				Intent intent = new Intent(activity, SecondActivity.class);
 				intent.putExtra("type", type);
 				activity.startActivityForResult(intent, REQUEST_CODE_FOR_START_ACTIVITY);
+				//ToastMessage.showToastMessage(activity, "sdsdsdsdsd");
 			}
 		} else {
 			result.notImplemented();

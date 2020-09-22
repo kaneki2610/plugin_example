@@ -16,13 +16,16 @@ class _MyAppState extends State<MyApp> {
   String _deviceInfo = "empty";
   String number = "";
   StreamSubscription _subscription;
+  TextEditingController controller = TextEditingController();
+  bool _validate = false;
 
   @override
   void initState() {
     super.initState();
-    this.initPlatformState();
+    // this.initPlatformState();
   }
 
+/*
   Future<void> initPlatformState() async {
     try {
       this._subscription = FlutterVnpt().demoEventChannel((msg) {
@@ -35,11 +38,13 @@ class _MyAppState extends State<MyApp> {
     }
     setState(() {});
   }
+*/
 
   @override
   void dispose() {
     super.dispose();
     this._subscription.cancel();
+    this.controller.dispose();
   }
 
   @override
@@ -51,6 +56,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: Container(
+            margin: EdgeInsets.only(left: 8, right: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -60,28 +66,33 @@ class _MyAppState extends State<MyApp> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "1. Demo Event channel:   ${this.number}",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
                       "2. Demo method channel:",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green),
                     ),
                     SizedBox(height: 8),
                     Text(
-                      "Device info:   ${this._deviceInfo}",
-                      style:
-                      TextStyle(color: Colors.redAccent, fontSize: 16, fontWeight: FontWeight.bold),
+                      "Value:   ${this._deviceInfo}",
+                      style: TextStyle(
+                          color: Colors.redAccent, fontSize: 16, fontWeight: FontWeight.bold),
                     ),
+                    SizedBox(height: 8),
+                    TextField(
+                        controller: controller,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Enter the Value',
+                          errorText: this._validate ? 'Value Can\'t Be Empty' : null,
+                        ))
                   ],
                 ),
                 SizedBox(height: 16),
                 RaisedButton(
+                  padding: EdgeInsets.all(8),
                   onPressed: () {
                     this._getDeviceInfo();
                   },
-                  child: Text("Start activity and receive from Android native"),
+                  child: Text("Start activity and receive data from Android native"),
                 )
               ],
             ),
@@ -92,18 +103,29 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _getDeviceInfo() async {
-    try {
-      Map<String, dynamic> param = {};
-      param["type"] = "MODEL";
-      String result = await FlutterVnpt().getDeviceInfo(param);
-      if (result != null) {
-        this._deviceInfo = result;
-      } else {
-        this._deviceInfo = "Can't get device";
+    print(controller.text);
+    if (controller.text.isEmpty) {
+      setState(() {
+        this._validate = true;
+      });
+    } else {
+      setState(() {
+        this._validate = false;
+      });
+      try {
+        Map<String, dynamic> param = {};
+        param["type"] = this.controller.text;
+        String result = await FlutterVnpt().getDeviceInfo(param);
+        if (result != null) {
+          this._deviceInfo = result;
+        } else {
+          this._deviceInfo = "null";
+        }
+        this.controller.clear();
+        setState(() {});
+      } on PlatformException catch (e) {
+        this._deviceInfo = e.message;
       }
-      setState(() {});
-    } on PlatformException catch (e) {
-      this._deviceInfo = e.message;
     }
   }
 }
