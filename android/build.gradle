@@ -17,6 +17,9 @@ rootProject.allprojects {
         google()
         jcenter()
         maven { url 'https://jitpack.io' }
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
 
@@ -37,4 +40,5 @@ dependencies{
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation project(path: ':CustomActivity')
+    implementation fileTree(dir: 'libs', include:['*.aar'])
 }
