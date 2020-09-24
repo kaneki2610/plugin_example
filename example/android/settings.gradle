@@ -1,3 +1,4 @@
+include ':VnptAndroidModule1'
 include ':app'
 include ':fluttervnpt'
 

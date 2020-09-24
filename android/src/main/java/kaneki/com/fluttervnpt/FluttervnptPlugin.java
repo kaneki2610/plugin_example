@@ -97,7 +97,6 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 				Intent intent = new Intent(activity, SecondActivity.class);
 				intent.putExtra("type", type);
 				activity.startActivityForResult(intent, REQUEST_CODE_FOR_START_ACTIVITY);
-				//ToastMessage.showToastMessage(activity, "sdsdsdsdsd");
 			}
 		} else {
 			result.notImplemented();
