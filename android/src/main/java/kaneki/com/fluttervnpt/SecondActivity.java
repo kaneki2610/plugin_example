@@ -52,7 +52,7 @@ public class SecondActivity extends AppCompatActivity implements NewDesign.OnHea
 				final Intent data = new Intent();
 				data.putExtra("deviceInfo", deviceInfo);
 				setResult(Activity.RESULT_OK, data);
-				//finish();
+				finish();
 			}
 		});
 	}
