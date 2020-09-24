@@ -1,4 +1,4 @@
-include ':VnptAndroidModule1'
+include ':CustomActivity'
 include ':app'
 include ':fluttervnpt'
 
