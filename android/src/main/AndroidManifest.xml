@@ -9,6 +9,6 @@
     <application android:theme="@style/AppTheme">
         <activity
             android:name=".SecondActivity"
-            android:theme="@style/Theme.AppCompat.Light"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 </manifest>
