@@ -21,6 +21,7 @@ public class SecondActivity extends AppCompatActivity implements NewDesign.OnHea
 	String deviceInfo = "";
 	String model = "";
 	CustomModel customModel;
+	Button btnGotoPluginNative1;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class SecondActivity extends AppCompatActivity implements NewDesign.OnHea
 		model = intent.getStringExtra("type");
 
 		btnBackFlutterView = findViewById(R.id.btnOnBackFlutterView);
+		btnGotoPluginNative1 = findViewById(R.id.btnGotoPluginNative1);
+
 		handleClick();
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		NewDesign newDesign = (NewDesign) fragmentManager.findFragmentById(R.id.fragment);
@@ -52,10 +55,15 @@ public class SecondActivity extends AppCompatActivity implements NewDesign.OnHea
 		btnBackFlutterView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				/*final Intent data = new Intent();
+				final Intent data = new Intent();
 				data.putExtra("deviceInfo", deviceInfo);
 				setResult(Activity.RESULT_OK, data);
-				finish();*/
+				finish();
+			}
+		});
+		btnGotoPluginNative1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
 				customModel.changeData(deviceInfo);
 			}
 		});

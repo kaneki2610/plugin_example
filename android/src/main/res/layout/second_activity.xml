@@ -17,12 +17,37 @@
         android:layout_height="40dp">
     </ImageView>
 
-    <fragment
-        android:layout_marginRight="16dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:id="@+id/fragment"
-        android:name="com.example.startactivitylibrary.NewDesign"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_marginRight="16dp"
+        android:fillViewport="true">
+        <LinearLayout
+            android:weightSum="10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <fragment
+                android:layout_weight="9"
+                android:id="@+id/fragment"
+                android:name="com.example.startactivitylibrary.NewDesign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btnGotoPluginNative1"
+                android:textColor="@android:color/white"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_green_dark"
+                android:text="Go to Plugin Native 1">
+
+            </Button>
+
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>
