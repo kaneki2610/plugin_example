@@ -152,9 +152,14 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 
 	@Override
 	public void onDataChange() {
-		String data = CustomModel.getInstance().getData();
-		pendingResult.success(data);
-	/*	Intent intent = new Intent(activity, ThirdActivity.class);
-		activity.startActivity(intent);*/
+		Map<String, String> data = CustomModel.getInstance().getData();
+		JSONObject json = new JSONObject();
+		try {
+			json.put("value", data.get("value"));
+			json.put("event", data.get("event"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		pendingResult.success(json);
 	}
 }

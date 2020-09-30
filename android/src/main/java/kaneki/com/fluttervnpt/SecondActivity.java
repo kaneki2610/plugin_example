@@ -55,16 +55,14 @@ public class SecondActivity extends AppCompatActivity implements NewDesign.OnHea
 		btnBackFlutterView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final Intent data = new Intent();
-				data.putExtra("deviceInfo", deviceInfo);
-				setResult(Activity.RESULT_OK, data);
+				customModel.changeData(deviceInfo, "");
 				finish();
 			}
 		});
 		btnGotoPluginNative1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				customModel.changeData(deviceInfo);
+				customModel.changeData(deviceInfo, "pushScreen");
 			}
 		});
 	}

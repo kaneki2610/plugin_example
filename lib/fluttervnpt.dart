@@ -19,9 +19,8 @@ class FlutterVnpt {
   }
 
   //MethodChannel
-  Future<String> getDeviceInfo(Map<String, dynamic> value) async {
-    final String info = await _channel.invokeMethod('startActivity', value);
-    return info;
+  Future<dynamic> getDeviceInfo(Map<String, dynamic> value) async {
+    return await _channel.invokeMethod('startActivity', value);
   }
 
   //EventChannel
