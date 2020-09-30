@@ -8,6 +8,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
@@ -98,9 +103,6 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 				result.error("ERROR", "type can not null", null);
 			} else {
 				CustomModel.getInstance().setListener(this);
-				String modelState = CustomModel.getInstance().getData();
-				Log.d("hung", "Current data: " + modelState);
-
 				Intent intent = new Intent(activity, SecondActivity.class);
 				intent.putExtra("type", type);
 				//activity.startActivityForResult(intent, REQUEST_CODE_FOR_START_ACTIVITY);

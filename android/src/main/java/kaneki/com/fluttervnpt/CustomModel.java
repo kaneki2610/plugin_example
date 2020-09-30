@@ -1,5 +1,8 @@
 package kaneki.com.fluttervnpt;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CustomModel {
 	public interface OnCustomStateListener {
 		void onDataChange();
