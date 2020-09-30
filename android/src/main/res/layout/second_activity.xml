@@ -37,6 +37,8 @@
                 android:layout_height="match_parent" />
 
             <Button
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:id="@+id/btnGotoPluginNative1"
                 android:textColor="@android:color/white"
                 android:layout_weight="1"

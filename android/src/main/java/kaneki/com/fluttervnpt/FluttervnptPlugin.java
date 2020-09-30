@@ -47,12 +47,8 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 
 	@Override
 	public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-		channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName, JSONMethodCodec.INSTANCE);
+		channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName);
 		channel.setMethodCallHandler(this);
-
-
-
-
 		/*eventChannel = new EventChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), eventChannelName);
 		onStreamHandler(eventChannel);*/
 	}
@@ -60,9 +56,8 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 
 	public static void registerWith(Registrar registrar) {
 		activity = registrar.activity();
-		final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName, JSONMethodCodec.INSTANCE);
+		final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName);
 		channel.setMethodCallHandler(new FluttervnptPlugin());
-
 		/*eventChannel = new EventChannel(registrar.messenger(), eventChannelName);
 		onStreamHandler(eventChannel);*/
 	}
@@ -99,16 +94,12 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 	public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
 		if (call.method.equals("startActivity")) {
 			this.pendingResult = result;
+            CustomModel.getInstance().setListener(this);
 			String type = call.argument("type");
-			if (type == null || (type != null && type.isEmpty())) {
-				result.error("ERROR", "type can not null", null);
-			} else {
-				CustomModel.getInstance().setListener(this);
-				Intent intent = new Intent(activity, SecondActivity.class);
-				intent.putExtra("type", type);
-				//activity.startActivityForResult(intent, REQUEST_CODE_FOR_START_ACTIVITY);
-				activity.startActivity(intent);
-			}
+            Intent intent = new Intent(activity, SecondActivity.class);
+            intent.putExtra("type", type);
+            //activity.startActivityForResult(intent, REQUEST_CODE_FOR_START_ACTIVITY);
+            activity.startActivity(intent);
 		} else {
 			result.notImplemented();
 		}
@@ -155,14 +146,7 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 
 	@Override
 	public void onDataChange() {
-		Map<String, String> data = CustomModel.getInstance().getData();
-		JSONObject json = new JSONObject();
-		try {
-			json.put("value", data.get("value"));
-			json.put("event", data.get("event"));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		pendingResult.success(json);
+		String data=  CustomModel.getInstance().getData();
+		pendingResult.success(data);
 	}
 }

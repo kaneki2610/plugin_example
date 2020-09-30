@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 typedef void Listener(dynamic msg);
 
 class FlutterVnpt {
-  static const MethodChannel _channel = const MethodChannel('fluttervnpt', JSONMethodCodec());
+  static const MethodChannel _channel = const MethodChannel('fluttervnpt');
 
   static const EventChannel _events = const EventChannel('locationStatusStream');
   final Stream<dynamic> stream = _events.receiveBroadcastStream();
@@ -19,7 +19,7 @@ class FlutterVnpt {
   }
 
   //MethodChannel
-  Future<dynamic> getDeviceInfo(Map<String, dynamic> value) async {
+  Future<String> getDeviceInfo(Map<String, dynamic> value) async {
     return await _channel.invokeMethod('startActivity', value);
   }
 

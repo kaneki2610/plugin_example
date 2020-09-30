@@ -11,7 +11,6 @@ public class CustomModel {
 	private static CustomModel mInstance;
 	private OnCustomStateListener mListener;
 	private String onData = "";
-	private String onEvent = "";
 
 	private CustomModel() {}
 
@@ -26,19 +25,15 @@ public class CustomModel {
 		mListener = listener;
 	}
 
-	public void changeData(String value, String event) {
+	public void changeData(String value) {
 		if(mListener != null) {
 			onData = value;
-			onEvent = event;
 			notifyDataChange();
 		}
 	}
 
-	public Map<String, String> getData() {
-		Map<String, String > map = new HashMap<>();
-		map.put("value", onData);
-		map.put("event", onEvent);
-		return map;
+	public String getData() {
+		return onData;
 	}
 
 	private void notifyDataChange() {
