@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
-
-import com.example.startactivitylibrary.ToastMessage;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
@@ -23,7 +22,8 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 /**
  * MvbarcodescanPlugin
  */
-public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener {
+public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.ActivityResultListener,
+		CustomModel.OnCustomStateListener {
 
 	private static final String channelName = "fluttervnpt";
 	private static final String eventChannelName = "locationStatusStream";
@@ -43,6 +43,9 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 	public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
 		channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName);
 		channel.setMethodCallHandler(this);
+
+
+
 
 		/*eventChannel = new EventChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), eventChannelName);
 		onStreamHandler(eventChannel);*/
@@ -94,9 +97,14 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 			if (type == null || (type != null && type.isEmpty())) {
 				result.error("ERROR", "type can not null", null);
 			} else {
+				CustomModel.getInstance().setListener(this);
+				String modelState = CustomModel.getInstance().getData();
+				Log.d("hung", "Current data: " + modelState);
+
 				Intent intent = new Intent(activity, SecondActivity.class);
 				intent.putExtra("type", type);
-				activity.startActivityForResult(intent, REQUEST_CODE_FOR_START_ACTIVITY);
+				//activity.startActivityForResult(intent, REQUEST_CODE_FOR_START_ACTIVITY);
+				activity.startActivity(intent);
 			}
 		} else {
 			result.notImplemented();
@@ -130,7 +138,7 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 
 	@Override
 	public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == REQUEST_CODE_FOR_START_ACTIVITY && data != null) {
+		/*if (requestCode == REQUEST_CODE_FOR_START_ACTIVITY && data != null) {
 			if (resultCode == Activity.RESULT_OK) {
 				String result = data.getStringExtra("deviceInfo");
 				pendingResult.success(result);
@@ -138,7 +146,15 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 				pendingResult.success("");
 			}
 			return true;
-		}
+		}*/
 		return false;
+	}
+
+	@Override
+	public void onDataChange() {
+		String data = CustomModel.getInstance().getData();
+		pendingResult.success(data);
+	/*	Intent intent = new Intent(activity, ThirdActivity.class);
+		activity.startActivity(intent);*/
 	}
 }

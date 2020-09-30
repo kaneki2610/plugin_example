@@ -1,14 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kaneki.com.fluttervnpt">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application android:theme="@style/AppTheme">
+        <activity android:name=".ThirdActivity"
+            android:theme="@style/Theme.AppCompat.Light">
+        </activity>
         <activity
             android:name=".SecondActivity"
-            android:theme="@style/Theme.AppCompat.Light"></activity>
+            android:theme="@style/Theme.AppCompat.Light" />
     </application>
+
 </manifest>

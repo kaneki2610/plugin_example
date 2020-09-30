@@ -20,11 +20,14 @@ public class SecondActivity extends AppCompatActivity implements NewDesign.OnHea
 	ImageView btnBackFlutterView;
 	String deviceInfo = "";
 	String model = "";
+	CustomModel customModel;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.second_activity);
+
+		customModel = CustomModel.getInstance();
 
 		Intent intent = getIntent();
 		model = intent.getStringExtra("type");
@@ -49,10 +52,11 @@ public class SecondActivity extends AppCompatActivity implements NewDesign.OnHea
 		btnBackFlutterView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final Intent data = new Intent();
+				/*final Intent data = new Intent();
 				data.putExtra("deviceInfo", deviceInfo);
 				setResult(Activity.RESULT_OK, data);
-				finish();
+				finish();*/
+				customModel.changeData(deviceInfo);
 			}
 		});
 	}
