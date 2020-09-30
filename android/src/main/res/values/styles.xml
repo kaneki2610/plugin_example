@@ -1,9 +1,9 @@
 <resources>
-    <style name = "AppTheme" parent = "android:Theme.Holo.Light.DarkActionBar">
+    <style name = "AppTheme" parent = "android:Theme.Holo.Light.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
 
-    <style name = "NoActionBar" parent = "@android:style/Theme.Holo.Light">
+    <style name = "NoActionBar" parent = "@android:style/Theme.Holo.NoActionBar">
         <item name = "android:windowActionBar">false</item>
         <item name = "android:windowNoTitle">true</item>
     </style>
