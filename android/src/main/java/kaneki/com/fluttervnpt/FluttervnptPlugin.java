@@ -23,6 +23,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+import io.flutter.plugin.common.JSONMethodCodec;
 
 /**
  * MvbarcodescanPlugin
@@ -46,7 +47,7 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 
 	@Override
 	public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-		channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName);
+		channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName, JSONMethodCodec.INSTANCE);
 		channel.setMethodCallHandler(this);
 
 
@@ -59,7 +60,7 @@ public class FluttervnptPlugin implements FlutterPlugin, MethodCallHandler, Acti
 
 	public static void registerWith(Registrar registrar) {
 		activity = registrar.activity();
-		final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName);
+		final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName, JSONMethodCodec.INSTANCE);
 		channel.setMethodCallHandler(new FluttervnptPlugin());
 
 		/*eventChannel = new EventChannel(registrar.messenger(), eventChannelName);
